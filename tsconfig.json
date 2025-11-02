@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "lib": ["esnext"],
+    "target": "es2020",
+    "module": "es2020",
+    "rootDir": "./src",              // Assumes your source files are in a 'src' folder
+    "outDir": "./dist",              // The folder where the compiled .js will go (clasp pushes from here)
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true
+  },
+  "include": ["src/**/*"]
+}

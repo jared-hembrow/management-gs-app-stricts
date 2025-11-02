@@ -1,0 +1,31 @@
+{
+  "name": "management-gs-app-stricts",
+  "version": "1.0.0",
+  "description": "app scripts for google sheets",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "push": "npx tsc && clasp push",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tt": "ts-node ./dev/dates.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jared-hembrow/management-gs-app-stricts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jared-hembrow/management-gs-app-stricts/issues"
+  },
+  "homepage": "https://github.com/jared-hembrow/management-gs-app-stricts#readme",
+  "devDependencies": {
+    "@types/google-apps-script": "^2.0.7",
+    "@types/node": "^24.9.2",
+    "dotenv": "^17.2.3",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
