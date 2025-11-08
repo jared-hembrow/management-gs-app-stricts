@@ -118,11 +118,13 @@ function workData(
   const dateColumnIndex = 0;
 
   // Filter two weeks
-  const filteredData = filterByDateRange(
-    data,
-    dates.startPrevWeek,
-    dates.endCurrentWeek,
-    dateColumnIndex
+  const filteredData = data.filter((row) =>
+    filterByDateRange(
+      data,
+      dates.startPrevWeek,
+      dates.endCurrentWeek,
+      dateColumnIndex
+    )
   );
   const getTaxFromWeek = (weeklyIncome: number): number => {
     let estYearIncome = weeklyIncome * 52;
@@ -182,20 +184,24 @@ function workData(
   };
 
   // Create current Week View
-  const currentWeekData = filterByDateRange(
-    filteredData,
-    dates.startCurrentWeek,
-    dates.endCurrentWeek,
-    dateColumnIndex
+  const currentWeekData = filteredData.filter((row) =>
+    filterByDateRange(
+      row,
+      dates.startCurrentWeek,
+      dates.endCurrentWeek,
+      dateColumnIndex
+    )
   );
   const currentWeekOverView = createWorkWeekOverview(currentWeekData);
 
   // Create Prev Week View
-  const prevWeekData = filterByDateRange(
-    filteredData,
-    dates.startPrevWeek,
-    dates.endPrevWeek,
-    dateColumnIndex
+  const prevWeekData = filteredData.filter((row) =>
+    filterByDateRange(
+      row,
+      dates.startPrevWeek,
+      dates.endPrevWeek,
+      dateColumnIndex
+    )
   );
   const prevWeekOverView = createWorkWeekOverview(prevWeekData);
 
@@ -261,29 +267,27 @@ function getDates(): IDates {
 }
 
 const filterByDateRange = (
-  rows: any[][],
+  row: any[],
   start: Date,
   end: Date,
   dateColumnIndex: number
 ) => {
-  return rows.filter((row) => {
-    const cellDateValue = row[dateColumnIndex];
-    if (cellDateValue instanceof Date) {
-      console.log("Is istance of date");
-      // Normalize the row date to midnight for comparison against startDate
-      const rowDate = new Date(cellDateValue);
-      const rowTs = rowDate.getTime();
-      const startTs = start.getTime();
-      const endTs = end.getTime();
-      // rowDate.setHours(1, 0, 0, 0);
+  const cellDateValue = row[dateColumnIndex];
+  if (cellDateValue instanceof Date) {
+    console.log("Is istance of date");
+    // Normalize the row date to midnight for comparison against startDate
+    const rowDate = new Date(cellDateValue);
+    const rowTs = rowDate.getTime();
+    const startTs = start.getTime();
+    const endTs = end.getTime();
+    // rowDate.setHours(1, 0, 0, 0);
 
-      const afterEnd = rowTs >= startTs;
-      const beforeStart = rowTs <= endTs;
+    const afterEnd = rowTs >= startTs;
+    const beforeStart = rowTs <= endTs;
 
-      // Check if the date is greater than or equal to the start date AND
-      // less than or equal to the end date.
-      return afterEnd && beforeStart;
-    }
-    return false;
-  });
+    // Check if the date is greater than or equal to the start date AND
+    // less than or equal to the end date.
+    return afterEnd && beforeStart;
+  }
+  return false;
 };
